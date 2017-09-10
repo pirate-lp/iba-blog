@@ -17,8 +17,6 @@
 		<link rel="stylesheet" href="/css/pure.css" type="text/css">
 		<link rel="stylesheet" href="/css/backgrounds.css" type="text/css">
 		
-		
-		<link rel="stylesheet" href="/css/selectize.css" type="text/css">
 		<link rel="stylesheet" href="/css/style.css" type="text/css">
 		
 		<link rel="stylesheet" href="/css/journal.css" type="text/css">
@@ -37,7 +35,12 @@
 	
 	<body class="template-@yield('cssclass')
 		">
+			<script>
+				Window.Config = <?php echo json_encode(config('iba-blog')); ?>;
+			</script>
+			
 			@yield('body')
+			
 			@include('modules.master.footer')
 		<script src="/lil-plp/iba-blog/js/index.js"></script>
 	</body>

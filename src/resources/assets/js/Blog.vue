@@ -49,7 +49,7 @@ export default {
 	},
 	mounted() {
 		let self = this;
-		this.$http.get(app.host + 'modules/categories/')
+		this.$http.get(app.host + '/modules/categories/')
 			.then(function(response){
 				self.categories = response.data 
 			});

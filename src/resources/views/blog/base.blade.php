@@ -16,10 +16,6 @@
 			<span><a href="/blog/">Lost Ideas Lab's Blog</a></span>
 		@endslot
 		
-<!--
-		<li><a href="/poems/">Index</a></li>
-		<!--<li><a href="/poems/archive/#dedications">Dedications</a></li>
-		<li><a href="/poems/archive/#inspirations">Inspired</a></li>-->
 		<li><a href="/blog/introduction/">Introduction</a></li>
 	@endcomponent
 	

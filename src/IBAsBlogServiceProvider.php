@@ -21,6 +21,10 @@ class IBAsBlogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+	    $this->publishes([
+        	__DIR__.'/config/iba-blog.php' => config_path('iba-blog.php'),
+		]);
+		
         //
 //         $this->loadRoutesFrom(__DIR__.'/routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
@@ -30,6 +34,8 @@ class IBAsBlogServiceProvider extends ServiceProvider
         $this->publishes([
         	__DIR__.'/public' => public_path('lil-plp/iba-blog'),
 			], 'public');
+		
+		$this->loadMigrationsFrom(__DIR__.'/migrations');
     }
 
     /**

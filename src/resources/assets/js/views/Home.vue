@@ -76,14 +76,14 @@ export default {
 						return self.hasCategory(item, self.$route.params.slug)
 						});
 				} else {
-					this.$http.get(app.host + 'categories/' + this.$route.params.slug )
+					this.$http.get(app.host + '/categories/' + this.$route.params.slug )
 						.then(function(response){
 							self.items = _.toArray(response.data)
 							self.requestSent = true;
 						});
 				}
 			} else {
-				this.$http.get(app.host + 'index/')
+				this.$http.get(app.host + '/index/')
 					.then(function(response){
 						self.posts = response.data 
 						self.items = _.toArray(self.posts);

@@ -2,7 +2,6 @@ import VueRouter from 'vue-router'
 
 import Home from './views/Home'
 import SinglePost from './views/SinglePost'
-// import Introduction from './views/Introduction'
 
 let routes = [
 	{
@@ -10,28 +9,6 @@ let routes = [
 		name: 'home',
 		component: Home
 	},
-/*
-	{
-		path: '/info',
-		name: 'info',
-		component: Info
-	},
-	{
-		path: '/setting',
-		name: 'setting',
-		component: Setting
-	},
-	{
-		path: '/bundle/',
-		component: BundleManage
-	},*/
-/*
-	{
-		path: '/introduction/',
-		name: 'introduction',
-		component: Introduction,
-	},
-*/
 	{
 		path: '/categories/:slug/',
 		name: 'categories',

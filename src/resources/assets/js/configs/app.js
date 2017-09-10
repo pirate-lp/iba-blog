@@ -1,3 +1,3 @@
 export default {
-	host: 'http://lil.dev/blog/',
+	host: Window.Config.host + Window.Config.blog_uri
 }
