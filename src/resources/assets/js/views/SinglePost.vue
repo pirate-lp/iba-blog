@@ -59,7 +59,7 @@ export default {
 	methods: {
 		initialize() {
 			let self = this;
-			this.$http.get(app.host + this.$route.params.id )
+			this.$http.get(app.host + '/' + this.$route.params.id )
 				.then(function(response){
 					self.content = response.data 
 				});

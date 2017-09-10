@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use LILPLP\IBA\Http\Controllers\BookController;
-use LILPLP\IBAsBlog\Post;
+use LILPLP\IBAsBlog\Post as Post;
 use LILPLP\IBA\Name as Name;
 use LILPLP\IBAsBlog\Keyword as Keyword;
 use LILPLP\IBA\Bundle as Bundle;
@@ -84,10 +84,10 @@ class PostController extends BookController
 			);
     }
     
-    public function asset(Post $post, $asset_name)
-	{
-		$uri = 'posts/' . $post->id . '/' . $asset_name;
-		return response()->asset($asset_name, $uri);
+    public function asset($post, $asset)
+	{	
+		$uri = 'posts/' . $post . '/' . $asset;
+		return response()->asset($asset, $uri);
 	}
     
     public function category($slug)
