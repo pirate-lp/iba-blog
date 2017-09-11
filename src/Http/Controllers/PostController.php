@@ -4,7 +4,7 @@ namespace LILPLP\IBAsBlog\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
+use Illuminate\Routing\Route;
 
 // use App\Book\AbstractBook;
 
@@ -106,7 +106,7 @@ class PostController extends BookController
     
     public function store(Request $request)
     {
-	    $this->validate($request, [
+	    $request->validate([
 	        'title' => 'required',
 	        'slug' => 'required',
 	        'content' => 'required',
@@ -119,12 +119,14 @@ class PostController extends BookController
 		$post = new Post;
 		$post->save();
 		
+/*
 		if($request->file('thumbnail')->isValid()) {
 			$file = $request->file('thumbnail')->store();
 			
 			$fileUri = static::$storageName . '/' . $post->id . $request->file('thumbnail')->originalName . '.' . $request->file('thumbnail')->mimeType ;
 			Storage::disk('ibook')->put($fileUri, $request->file('thumbnail') );
 		}
+*/
 		
 		$post->store($values);
 		
@@ -133,9 +135,10 @@ class PostController extends BookController
 		return response()->backend($post);
     }
     
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $post)
     {	
 		$values = $request->only(['title', 'slug', 'subtitle', 'thumbnail', 'description', 'keywords', 'bundles', 'timestamp', 'people']);
+		$post = Post::find($post);
 		$post->revise($values);
 
 		$post->save();

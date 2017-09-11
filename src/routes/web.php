@@ -53,7 +53,7 @@ Route::namespace('LILPLP\IBAsBlog\Http\Controllers')->group(function () {
 });
 
 	Route::namespace('LILPLP\IBAsBlog\Http\Controllers')->middleware('auth:api')->prefix('/api/backend/post')->group(function () {
-		Route::put('/{post}/', 'PostController@update');
+		Route::patch('/{post}/', 'PostController@update');
 		Route::get('/{post}/edit', 'PostController@edit');
 		Route::get('/create/', 'PostController@create');
 		Route::post('/', 'PostController@store');

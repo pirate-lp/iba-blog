@@ -128,7 +128,8 @@ export default {
 		checkTimeSpan(year,month) {
 			let current = moment().year( (this.endOfTime - year) + 1 ).month((12-month))
 			var first = moment.unix(this.first)
-			return ( (this.first <= current.unix() && (current.unix() <= this.last) ) ||  ( (first.year() == current.year()) && (first.month() == current.month()) )  )
+			var last = moment.unix(this.last).day(31).hour(23).minutes(59)
+			return ( (this.first <= current.unix() && (current.unix() <= last.unix()) ) ||  ( (first.year() == current.year()) && (first.month() == current.month()) )  )
 		},
 		monthText(date) {
 			date = 12 - date ;
