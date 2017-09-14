@@ -50,12 +50,12 @@ Route::namespace('LILPLP\IBAsBlog\Http\Controllers')->group(function () {
 	Route::get('/blog/{year}/{season}/{slug}/', 'PostController@old');
 	
 	Route::get('/blog/{post}/{asset}', 'PostController@asset');
-});
-
-	Route::namespace('LILPLP\IBAsBlog\Http\Controllers')->middleware('auth:api')->prefix('/api/backend/post')->group(function () {
-		Route::patch('/{post}/', 'PostController@update');
-		Route::get('/{post}/edit', 'PostController@edit');
+	
+	Route::middleware('auth:api')->prefix('/api/backend/post')->group(function () {
+		Route::get('/', 'PostController@manage');
 		Route::get('/create/', 'PostController@create');
 		Route::post('/', 'PostController@store');
-		Route::get('/', 'PostController@manage');
+		Route::get('/{post}/edit', 'PostController@edit');
+		Route::patch('/{post}/', 'PostController@update');
 	});
+});
