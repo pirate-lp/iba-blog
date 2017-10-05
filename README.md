@@ -1,2 +1,3 @@
-# iba-blog
-Interactive Book Publisher's Blogging example
+# Interactive Books' Atelier | Blog
+
+Please visit http://lostideaslab.com/pirates-lost-pearl/iba-blog/ for info on using Interactive Books' Atelier ...
