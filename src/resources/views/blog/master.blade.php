@@ -1,47 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	   <meta charset="utf-8" />
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    
-	    <title>
-	    	@stack('title')
-		    | LIL</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<meta name="description" content="@stack('description')
-			">
-	
-	    
-	    @stack('rssfeed')
-	    
-		<link rel="stylesheet" href="/css/pure.css" type="text/css">
-		<link rel="stylesheet" href="/css/backgrounds.css" type="text/css">
+		<title>
+			{{ config('iba-blog.name')}}
+		</title>
 		
-		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<meta name="description" content="{{ config('iba-blog.description') or '' }}">
 		
-		<link rel="stylesheet" href="/css/journal.css" type="text/css">
-		<link rel="stylesheet" href="/css/ideas.css" type="text/css">
+<!-- 		Adding RSS FEEDs -->
 		
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700&amp;subset=latin-ext" rel="stylesheet">
-		<link rel="stylesheet" href="/css/fonts.css" type="text/css">
+		<script type="text/javascript" src="/js/template.js"></script>
+		<link rel="stylesheet" href="/lil-plp/iba-blog/css/style.css" type="text/css">
 		
-		
-	    <script type="text/javascript" src="/js/template.js"></script>
-	    <link  href="/fotorama/fotorama.css" rel="stylesheet">
-		<script src="/fotorama/fotorama.js"></script>
-		<script src="/js/selectize.js"></script>
+
 
 	</head>
 	
-	<body class="template-@yield('cssclass')
-		">
-			<script>
-				Window.Config = <?php echo json_encode(config('iba-blog')); ?>;
-			</script>
+	<body>
+		<script>
+			Window.Config = <?php echo json_encode(config('iba-blog')); ?>;
+		</script>
 			
-			@yield('body')
-			
-			@include('modules.master.footer')
+		@yield('body')
+		
 		<script src="/lil-plp/iba-blog/js/index.js"></script>
+		
 	</body>
 </html>

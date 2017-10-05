@@ -1,8 +1,11 @@
 <template>
 
 <div class="cd-header">
-	<div id="introduction" class="no content" v-html="introduction">
+<!--
+	<div id="intro" class="no content">
+	    <p>{{ config.intro }}</p>
 	</div>
+-->
 	<div id="tags" class="no content">
 		<header><h4>Tags</h4></header>
 		<div v-if="tags" style="overflow: auto;">
@@ -11,23 +14,16 @@
 			</template>
 		</div>
 	</div>
-	<div id="search" class="no content">
-		<people></people>
-	</div>
 </div>
 </template>
 
 <script>
 
 import app from '../configs/app'
-import People from '../components/People'
 
 export default {
 	name: 'Dashboard',
-	props: ['introduction'],
-	components: {
-		People,
-	},
+	props: [],
 	data () {
 		return {
 			tags: {},
@@ -65,7 +61,4 @@ export default {
 </script>
 
 <style scoped>
-.tag {
-	float: left;
-}
 </style>

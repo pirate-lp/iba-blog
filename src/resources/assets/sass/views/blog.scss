@@ -1,0 +1,90 @@
+.cd-container > header {
+	margin-left: 4rem;
+}
+@media screen and (min-width: 64em) {
+	.cd-container > header {
+		margin-left: 10rem;
+	}
+}
+
+
+
+.blog > .cd-top {
+	position: sticky;
+	top: 0px;
+}
+.blog > .cd-bottom {
+// 	position: sticky;
+	bottom: 0px;
+}
+.cd-contact {
+	z-index: 3;
+	margin-left: auto;
+	margin-right: auto;
+// 	max-width: 90%;
+	overflow: auto;
+}
+.content {
+	padding: 1rem;
+	background-color: rgba($third-color, 0.7);
+	color: $third-color-n;
+}
+
+.cd-header {
+	margin-top: 0.5rem;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+}
+.cd-header > div {
+	padding: 1rem;
+}
+
+.cd-footer {
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	background-color: rgba($third-color, 0.7);
+}
+.cd-footer > div {
+	padding: 1rem;
+}
+
+
+.cd-top {
+	border-bottom: 3px solid rgba($second-color, 0.7);
+}
+.cd-bottom {
+	border-top: 3px solid rgba($second-color, 0.7);
+}
+
+.blog .menu {
+	margin: 0px;
+	padding: 0px;
+	overflow: auto;
+	background-color: rgba($main-color, 0.3);
+}
+.blog .menu ul > li {
+}
+
+.blog .menu a {
+	border: 2px solid rgba($second-color, 0.7);
+	border-bottom: none;
+	background-color: $main-color;
+	padding: 0.7rem 1rem;
+	font-size: .9em;
+	color: white;
+	cursor: pointer;
+}
+.blog .menu a.extra {
+	background-color: #444;
+}
+.blog .menu a:hover {
+	background-color: $third-color;
+}
+
+
+
+.blog .menu a.router-link-active {
+	background-color: $second-color;
+}

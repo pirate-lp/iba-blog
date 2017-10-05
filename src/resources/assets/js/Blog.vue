@@ -1,34 +1,82 @@
 <template>
-	<div>
-	<header>
-	<nav class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-	    <ul class="pure-menu-list">
-	    	<li class="pure-menu-item sc"><router-link to="/">Index</router-link>
-	    	</li><li class="pure-menu-item" v-for="category in categories">
-	    		<router-link :to="{ name: 'categories', params: { slug: category.slug.value }}">{{ category.title.value }}</router-link>
-	    	</li>
-		</ul>
-	</nav>
-<!--
-	    <div class="logo">
-		   <h1 style="display: inline-block;" itemprop="name"><router-link to="/">Lost Idea Lab's Blog</router-link></h1>
+
+<div class="blog">
+	
+	<dashboard :introduction="introduction"></dashboard>
+	
+	<div class="cd-contact cd-top">
+		<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
+			<ul class="pure-menu-list">
+				</li><li class="pure-menu-item"><a onclick="$('#introduction').toggle()" href="#intro" class="extra pure-menu-link">Introduction</a>
+		    	</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" href="#search" class="extra pure-menu-link">Search</a>
+		    	</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" href="#tags" class="extra pure-menu-link">Tags</a>
+		    	</li><!--
+		    	<li class="pure-menu-item">
+		    		<router-link to="/" class="pure-menu-link">All Posts</router-link>
+		    		</li>
+				--><li class="pure-menu-item" v-for="category in categories">
+		    		<router-link :to="{ name: 'categories', params: { slug: category.slug.value }}" class="pure-menu-link">{{ category.title.value }}</router-link></li>
+			</ul>
 		</div>
--->
-		<nav class="mobile-yes" style="width: 100%;">
-		    <ul>
-		        <li style="margin: 0rem 1rem 2rem 1rem;"><a class="inline-sc" onclick="$('#mobile-dashboard').toggle();">Dashboard</a></li>
-		    </ul>
-		    <dashboard id="mobile-dashboard"></dashboard>
-		</nav>
-	</header>
-	<div class="pure-g">
-		<div class="cen pure-u-1-1 pure-u-sm-23-24 pure-u-md-2-3 pure-u-lg-3-4 pure-u-xl-4-5">
-		    <router-view template></router-view>
-	    </div>
-	    <div class="cen pure-u-1-1 pure-u-sm-23-24 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-5">
-			<dashboard id="mobile-dashboard"></dashboard>
+	</div>
+	
+	<router-view name="back" :collection="collection" :posts="posts" :title="title"></router-view>
+	<router-view name="single" :route="route"></router-view>
+	
+	<div class="cd-bottom cd-contact">
+		<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
+			<ul class="pure-menu-list">
+				<li class="pure-menu-item" v-for="(text, item) in footer">
+					<a v-on:click="onClick(item)" :href="'#footer-' + item" class="pure-menu-link">{{ item | capitalize }}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="cd-footer">
+		<template v-for="(text, item) in footer">
+			<div :id="'footer-' + item" class="content no" v-html="text">
+			</div>
+		</template>
+	</div>
+<!--
+<div class="cd-footer">
+	<div id="footer-follow" class="no">
+		<header>
+	        <h4></h4>
+	    </header>
+	    <div id="sidebar-follow">
+			{{ config.follow }}
 	    </div>
 	</div>
+	<div id="footer-contact" class="no">
+	    <header>
+	        <h4>Contact</h4>
+	    </header>
+	    <div id="sidebar-contact">
+	        {{ config.contact }}
+	    </div>
+	</div>
+	<div id="footer-gratitude" class="no">
+	    <header>
+	        <h4>Gratitude</h4>
+	    </header>
+	    <div id="sidebar-contact">
+	        {{ config.gratitude }}
+	    </div>
+	</div>
+	<div id="footer-policy" class="no">
+	    <header>
+	        <h4>Gratitude</h4>
+	    </header>
+	    <div id="sidebar-contact">
+	        {{ config.policy }}
+	    </div>
+	</div>
+</div>
+-->
+	
+	
+	
 
 </div>
 </template>
@@ -36,6 +84,9 @@
 <script>
 import app from './configs/app.js'
 import Dashboard from './components/Dashboard'
+
+var _ = require('underscore')
+var moment = require('moment')
 
 export default {
 	name: 'Blog',
@@ -45,24 +96,180 @@ export default {
 	data () {
 		return {
 			categories: {},
+			collection: {},
+			posts: {},
+			underscore: _,
+			startOfTime: 0,
+			endOfTime: 1,
+			first: 0,
+			last: 1,
+			requestSent: false,
+			title: '',
+			route: 0,
+// 			footerD: {},
 		}
 	},
-	mounted() {
+	mounted () {
 		let self = this;
 		this.$http.get(app.host + '/modules/categories/')
-			.then(function(response){
+			.then(function(response) {
 				self.categories = response.data 
 			});
 	},
 	methods: {
+		initiate() {
+			let self = this;
+			if ( this.$route.query.tag ) {
+				if ( !_.isEmpty(this.posts) ) {
+					self.collection = _.filter(self.posts, function (item) {
+						return self.hasKeyword(item, self.$route.query.tag)
+						});
+				} else {
+					this.$http.get(app.host + '?tag=' + this.$route.query.tag )
+						.then(function(response){
+							self.collection = _.toArray(response.data)
+							self.requestSent = true;
+						});
+					console.log("One")
+				}
+				this.title = this.$route.query.tag;
+			} else if ( this.$route.query.mention ) {
+				if ( !_.isEmpty(this.posts) ) {
+					self.collection = _.filter(self.posts, function (item) {
+						return self.hasMention(item, self.$route.query.mention)
+						});
+				} else {
+					this.$http.get(app.host + '?mention=' + this.$route.query.mention )
+						.then(function(response){
+							self.collection = _.toArray(response.data)
+							self.requestSent = true;
+						});
+					console.log("People")
+				}
+				this.title = '<small>Person mentioned: </small><br/>' + this.$route.query.identifier;
+// 				this.title = this.$route.query.tag;
+			} else if ( this.$route.name == 'categories' ) {
+				if ( !_.isEmpty(this.posts) ) {
+					self.collection = _.filter(self.posts, function (item) {
+						return self.hasCategory(item, self.$route.params.slug)
+						});
+				} else {
+					this.$http.get(app.host + '/categories/' + this.$route.params.slug )
+						.then(function(response){
+							self.collection = _.toArray(response.data)
+							self.requestSent = true;
+						});
+						console.log("Two")
+				}
+				this.title = '';
+			} else if ( this.$route.name != 'post' ) {
+				console.log("hi")
+				if ( _.isEmpty(this.posts) ) {
+					this.$http.get(app.host + '/index/')
+					.then(function(response){
+						self.posts = response.data 
+						self.collection = _.toArray(self.posts);
+						self.requestSent = true;
+					});
+					console.log("Three")
+				} else {
+					self.collection = _.toArray(this.posts);
+				}
+				this.title = null;
+			}
+/*
+			if ( this.$route.path == '/' ) {
+				this.$http.get(app.host + 'index/')
+					.then(function(response){
+						self.posts = response.data 
+						self.items = _.toArray(self.posts);
+						self.requestSent = true;
+					});
+			}
+*/
+			
+		},
+		
+		hasCategory(item, slug) {
+			if ( item.bundles) {
+				for ( var n in item.bundles ) {
+					if ( item.bundles[n].type == 'category' && (item.bundles[n].slug.value == slug) ) {
+						return true
+					}
+				}
+			}
+			return false
+		},
+		hasKeyword(item, keyword) {
+			if ( item.keywords) {
+				for ( var n in item.keywords ) {
+					if ( item.keywords[n].word == keyword ) {
+						return true
+					}
+				}
+			}
+			return false
+		},
+		hasMention(item, person) {
+			if ( item.people) {
+				for ( var n in item.people ) {
+					if ( item.people[n].id == person && item.people[n].pivot.role == "mention" ) {
+						return true
+					}
+				}
+			}
+			return false
+		},
+		
+		toggleFooter(item) {
+			let id = '#footer' + item
+			$(id).toggle();
+		},
+/*
+		toggleFooter(item) {
+			if ( this.footerD[item] == true ) {
+				console.log(item)
+				this.footerD[item] = false
+			} else  { this.footerD[item] = true }
+			console.log(this.footerD[item])
+		},
+		
+*/
+		onClick(item) {
+			let id = '#footer-'+ item
+			$(id).toggle();
+			console.log(id);
+			console.log($(id).val())
+		},
 	},
 	filters: {
 		capitalize: function(text) {
 			return text[0].toUpperCase() + text.slice(1);
 		}
 	},
+	created() {
+		this.initiate()
+	},
 	watch: {
-	}
+        
+        $route() {
+	        this.initiate()
+	        this.route = this.route + 1
+        },
+    },
+    computed: {
+	    introduction() {
+		    return Window.Config.introduction
+	    },
+	    footer() {
+/*
+		    for (var variable in Window.Config.footer) {
+			    this.footerD[variable] = false
+		    }
+*/
+		    return Window.Config.footer
+	    },
+    },
 }
 </script>
 
@@ -74,76 +281,5 @@ export default {
 </style>
 -->
 <style scoped>
-header > nav > ul {
-    margin: 0px 0px 0px 0px;
-    padding-right: 4px;
-}
-header > nav > ul > li {
-/* 	float: left; */
-/*     margin-right: -4px; */
-    border-top: 1px solid rgba(90, 130, 170, 1);
-    border-bottom: 1px solid rgba(90, 130, 170, 1);
-    border-right: 1px solid rgba(90, 130, 170, 1);
-    color: rgba(90, 130, 170, 1);
-    background-color: rgba(0, 0, 0, 0.75);
-    text-shadow: none;
-}
-header > nav > ul > li.current-menu-item > a {
-    color: black;
-    background-color: rgba(90, 130, 170, 0.5);
-}
-header > nav > ul > li > a {
-    display: block;
-    padding: 0.5em 1.5em;
-    border-bottom: none;
-}
-header > nav > ul > li > a:hover {
-    color: white;
-    border-bottom: none;
-    background-color: rgba(90, 130, 170, 0.5);
-}
-header > nav > ul > li:first-child {
-    border-left: 1px solid rgba(90, 130, 170, 1);
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-header > nav > ul > li:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-header > nav li a, .dropbtn {
-    display: inline-block;
-    color: rgba(90, 130, 170, 1);
-    padding: 0.5em 1.5em;
-}
 
-header > nav li a:hover, .dropdown:hover .dropbtn {
-    background-color: rgba(90, 130, 170, 0.5);
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 100000;
-}
-
-.dropdown-content a {
-    padding: 12px 16px;
-    display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: rgba(90, 130, 170, 0.5);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 </style>

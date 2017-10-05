@@ -1,3 +1,3 @@
 export default {
-	host: Window.Config.host + Window.Config.blog_uri
+	host: Window.Config.host + Window.Config.digital.uri
 }

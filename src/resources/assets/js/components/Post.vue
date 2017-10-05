@@ -1,14 +1,54 @@
 <template>
-<div>
-	<router-link :to="uri()" class="post-s shadow">
-		<div>
-			<span class="mc tag">{{ content.timestamp.publish | fromNow }}</span> | 
-			<template v-if="content.bundles">
-				<span v-for="bundle in content.bundles" v-if="bundle.type == 'category'" class="tag sc">
-					{{ bundle.title.value }}
+	
+	<div class="cd-timeline-block">
+		
+		<div class="cd-timeline-img cd-picture">
+		</div>
+		
+		<router-link :to="uri()" class="cd-timeline-content">
+			
+			<template v-if="content.thumbnail">
+				<img :src="thumbnail()" style="" />
+			</template>
+			
+			
+	        	
+<!--
+				<span class="timeline-content-info-date">
+	            	<i class="fa fa-calendar-o" aria-hidden="true"></i>
+					{{ content.timestamp.publish | fromNow }}
+				</span>
+-->
+			
+			
+			<div class="cd-aside">
+				<span class="date">{{ content.timestamp.publish | date }}</span>
+				
+				<span class="timeline-content-info-title">
+					<template v-if="content.bundles">
+						<span v-for="bundle in content.bundles" v-if="bundle.type == 'category'" class="tag sc">
+							{{ bundle.title.value }}
+						</span>
+					</template>
+				</span>
+				
+			</div>
+			
+			<h3 v-html="content.title.value"></h3>
+	        
+	        <div class="timeline-content-info">
+	        <template v-if="content.keywords">
+	        	<span v-for="keyword in content.keywords" class="tag sc">
+					{{ keyword.word }}
 				</span>
 			</template>
-		</div>
+			</div>
+	       
+	        
+	       
+		</router-link> <!-- cd-timeline-content -->
+	</div>
+
 <!--
 		@if ( $post->bundle('category') !== NULL )
 			@foreach ( $post->bundle('category') as $category )
@@ -16,12 +56,6 @@
 			@endforeach
 		@endif
 -->
-		<template v-if="content.thumbnail">
-			<img :src="thumbnail()" style="" />
-		</template>
-		<h4 v-html="content.title.value"></h4>
-	</router-link>
-</div>
 </template>
 
 <script>
@@ -51,6 +85,9 @@ export default {
 		},
 		fromNow: function(date) {
 			return moment(date).fromNow();
+		},
+		date: function(time) {
+			return moment(time).format('MMMM D, YYYY');
 		}
 	},
 	watch: {

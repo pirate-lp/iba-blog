@@ -7,18 +7,26 @@ let routes = [
 	{
 		path: '/',
 		name: 'home',
-		component: Home
+		components: {
+			back: Home,
+			single: ''
+		}
 	},
 	{
 		path: '/categories/:slug/',
 		name: 'categories',
-		component: Home,
+		components: {
+			back: Home
+		} ,
 		
 	},
 	{
 		path: '/:id/',
 		name: 'post',
-		component: SinglePost
+		components: {
+			back: Home,
+			single: SinglePost
+		},
 	},
 ];
 
@@ -33,6 +41,8 @@ export default new VueRouter({
 				// , offset: { x: 0, y: 10 }
     		}
   		}
-		return { x: 0, y: 0 }
+  		if ( to.name != 'post' ) {
+	  		return { x: 0, y: 0 }
+  		}	
 	}
 });

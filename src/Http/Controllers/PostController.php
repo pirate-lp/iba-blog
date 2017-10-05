@@ -45,6 +45,18 @@ class PostController extends BookController
 //  			return view('blog.people', compact('posts', 'person'));
 		}
 		
+		if ( $mention = request('mention') )
+		{
+// 			$detail = Name::where('identifier', $people)->first();
+//  			$person = $detail->people;
+// 			$id = $person->id;
+		    $posts = Post::withAll()->whereHas('roles', function( $query ) use ($mention) {
+				    $query->where([
+		 			    ['role', 'mention'],
+				    	['people_id', $mention ] ]);
+		    	})->get()->sortByDesc('timestamp.publish');
+//  			return view('blog.people', compact('posts', 'person'));
+		}
 		
 		if ( $tag = request('tag') )
 		{

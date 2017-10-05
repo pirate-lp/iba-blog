@@ -11,11 +11,15 @@ const { mix } = require('laravel-mix');
  |
  */
   
-mix.js('resources/assets/js/index.js', 'public/js/');
+mix.js('resources/assets/js/index.js', 'public/js/')
+	.js('resources/assets/js/main.js', 'public/js/')
+	.sass('resources/assets/sass/style.scss', 'public/css/');
 
+/*
 mix.combine([
 	'node_modules/purecss/build/pure-min.css',
 	'node_modules/purecss/build/grids-responsive-min.css',
     'resources/assets/sass/grid.scss'
 ], 'public/css/pure.css');
+*/
 

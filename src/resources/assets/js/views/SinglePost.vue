@@ -1,6 +1,8 @@
 <template>
-<div >
-	<div class="post-single">
+<div class="modal" style="display: block;" v-on:click.self="back()">
+	<div class="modal-content" style="z-index: 20;">
+		<span class="close" v-on:click.self="back()">&times;</span>
+	<div class="post-single" >
 	<article class="text shadow"  v-if="!isNaN($route.params.id)">
 		<div>
 			<template v-if="content.thumbnail">
@@ -34,9 +36,10 @@
 		<div>
 			<h2>{{ content.title }}</h2>
 		</div>
-		<div v-html="content.content">
+		<div :v-html="content.content">
 		</div>
 	</article>
+	</div>
 	</div>
 </div>
 </template>
@@ -48,6 +51,7 @@ var _ = require('underscore')
 var moment = require('moment')
 
 export default {
+	props: ['route'],
 	data () {
 		return {
 			content: {},
@@ -64,10 +68,25 @@ export default {
 					self.content = response.data 
 				});
 			
-		}
+		},
+		back() {
+			if (this.route == 0) {
+				console.log("we did this")
+				this.$router.push({ path: '/' })
+				return;
+			}
+			this.$router.go(-1)
+		},
+	},
+	mounted() {
+		this.initialize();
+		
 	},
 	created() {
-		this.initialize();
+		document.body.style.overflow = "hidden"
+	},
+	destroyed() {
+		document.body.style.overflow = "auto"
 	},
 	filters: {
 		date(date) {
@@ -85,6 +104,7 @@ export default {
 
 <style>
 .post-single {
+	margin: 0px 1vw;
 	padding: 2rem 0px 1rem 0px;
 }
 .tag-sc {
@@ -100,4 +120,6 @@ export default {
 		margin: 0px 10vw;
 	}
 }
+</style>
+<style lang="sass">
 </style>
