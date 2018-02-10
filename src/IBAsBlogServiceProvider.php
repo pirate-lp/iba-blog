@@ -38,7 +38,7 @@ class IBAsBlogServiceProvider extends ServiceProvider
         	__DIR__.'/public' => public_path('lil-plp/iba-blog'),
 			], 'public');
 		
-		$this->loadMigrationsFrom(__DIR__.'/migrations');
+		$this->loadMigrationsFrom(__DIR__.'/database/migrations');
 		
 		
 		View::composer('iba-blog::modules.tags', function($view) {
