@@ -1,6 +1,6 @@
 <template>
 	
-	<div id="cd-timeline" class="cd-container">
+	<div id="blog-timeline" class="blog-container">
 	
 	<header v-if="title">
 		<h1 v-html="title"></h1>
@@ -57,30 +57,29 @@ export default {
 		},
 		
 		collect() {
-	        this.items = _.sortBy(this.collection, function(item) {
-		        return item.timestamp.publish;
-		        }).reverse();
-	        let first = moment(_.first(this.items).timestamp.publish);
-	        let last = moment(_.last(this.items).timestamp.publish);
-	        this.first = Math.min(first.unix(),last.unix())
-	        this.last =  Math.max(first.unix(),last.unix())
-	        this.startOfTime = Math.min(first.year(),last.year());
-	        this.endOfTime = Math.max(first.year(),last.year());
-	        this.$redrawVueMasonry();
-        },
+			this.items = _.sortBy(this.collection, function(item) {
+				return item.timestamp.publish;
+				}).reverse();
+			let first = moment(_.first(this.items).timestamp.publish);
+			let last = moment(_.last(this.items).timestamp.publish);
+			this.first = Math.min(first.unix(),last.unix())
+			this.last =  Math.max(first.unix(),last.unix())
+			this.startOfTime = Math.min(first.year(),last.year());
+			this.endOfTime = Math.max(first.year(),last.year());
+			this.$redrawVueMasonry();
+		},
 	},
 	mounted() {
-		this.collect()
+		if ( !this._.isEmpty(this.collection) ) {
+			this.collect()
+		}
 	},
 	watch: {
-        collection() { 
-	        this.collect()
-	    },
-/*
-        $route() {
-	        this.initiate()
-        },
-*/
+		collection() {
+			if ( !this._.isEmpty(this.collection) ) {
+				this.collect()
+			}
+		},
 	}
 }
 </script>

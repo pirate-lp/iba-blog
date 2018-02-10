@@ -1,84 +1,45 @@
 <template>
-
-<div class="blog">
-	
-	<dashboard :introduction="introduction"></dashboard>
-	
-	<div class="cd-contact cd-top">
-		<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
-			<ul class="pure-menu-list">
-				</li><li class="pure-menu-item"><a onclick="$('#introduction').toggle()" href="#intro" class="extra pure-menu-link">Introduction</a>
-		    	</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" href="#search" class="extra pure-menu-link">Search</a>
-		    	</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" href="#tags" class="extra pure-menu-link">Tags</a>
-		    	</li><!--
-		    	<li class="pure-menu-item">
-		    		<router-link to="/" class="pure-menu-link">All Posts</router-link>
-		    		</li>
-				--><li class="pure-menu-item" v-for="category in categories">
-		    		<router-link :to="{ name: 'categories', params: { slug: category.slug.value }}" class="pure-menu-link">{{ category.title.value }}</router-link></li>
-			</ul>
-		</div>
-	</div>
-	
-	<router-view name="back" :collection="collection" :posts="posts" :title="title"></router-view>
-	<router-view name="single" :route="route"></router-view>
-	
-	<div class="cd-bottom cd-contact">
-		<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
-			<ul class="pure-menu-list">
-				<li class="pure-menu-item" v-for="(text, item) in footer">
-					<a v-on:click="onClick(item)" :href="'#footer-' + item" class="pure-menu-link">{{ item | capitalize }}</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="cd-footer">
-		<template v-for="(text, item) in footer">
-			<div :id="'footer-' + item" class="content no" v-html="text">
+	<div class="blog">
+		<div class="blog-contact blog-top">
+			<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
+				<ul class="pure-menu-list">
+					</li><li class="pure-menu-item"><a onclick="$('#introduction').toggle()" class="extra pure-menu-link">Introduction</a>
+			    	</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" class="extra pure-menu-link">Mentioned People</a>
+			    	</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" class="extra pure-menu-link">Tags</a>
+			    	</li><!--
+			    	<li class="pure-menu-item">
+			    		<router-link to="/" class="pure-menu-link">All Posts</router-link>
+			    		</li>
+					--><li class="pure-menu-item" v-for="category in categories">
+			    		<router-link :to="{ name: 'categories', params: { slug: category.slug.value }}" class="pure-menu-link">{{ category.title.value }}</router-link></li>
+				</ul>
 			</div>
-		</template>
+			<dashboard :introduction="introduction"></dashboard>
+		</div>
+		
+		
+		<router-view name="back" :collection="collection" :posts="posts" :title="title"></router-view>
+		<router-view name="single" :route="route"></router-view>
+		
+		<div class="blog-bottom blog-contact">
+			
+			<div class="blog-footer">
+				<template v-for="(text, item, index) in footer">
+					<div :id="'footer-' + index" class="content no" v-html="text">
+					</div>
+				</template>
+			</div>
+			
+			<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
+				<ul class="pure-menu-list">
+					<li class="pure-menu-item" v-for="(text, item, index) in footer">
+						<a v-on:click="onClick(index)" :href="'#footer-' + index" class="pure-menu-link">{{ item | capitalize }}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
 	</div>
-<!--
-<div class="cd-footer">
-	<div id="footer-follow" class="no">
-		<header>
-	        <h4></h4>
-	    </header>
-	    <div id="sidebar-follow">
-			{{ config.follow }}
-	    </div>
-	</div>
-	<div id="footer-contact" class="no">
-	    <header>
-	        <h4>Contact</h4>
-	    </header>
-	    <div id="sidebar-contact">
-	        {{ config.contact }}
-	    </div>
-	</div>
-	<div id="footer-gratitude" class="no">
-	    <header>
-	        <h4>Gratitude</h4>
-	    </header>
-	    <div id="sidebar-contact">
-	        {{ config.gratitude }}
-	    </div>
-	</div>
-	<div id="footer-policy" class="no">
-	    <header>
-	        <h4>Gratitude</h4>
-	    </header>
-	    <div id="sidebar-contact">
-	        {{ config.policy }}
-	    </div>
-	</div>
-</div>
--->
-	
-	
-	
-
-</div>
 </template>
 
 <script>
@@ -107,6 +68,13 @@ export default {
 			title: '',
 			route: 0,
 // 			footerD: {},
+			head: '',
+		}
+	},
+	metaInfo () {
+		return {
+			title: this.head + ' | ' + Window.Config.title,
+			meta: [{ vmid: 'description', name: 'description', content: Window.Config.description }]
 		}
 	},
 	mounted () {
@@ -133,6 +101,7 @@ export default {
 					console.log("One")
 				}
 				this.title = this.$route.query.tag;
+				this.head = this.$route.query.tag;
 			} else if ( this.$route.query.mention ) {
 				if ( !_.isEmpty(this.posts) ) {
 					self.collection = _.filter(self.posts, function (item) {
@@ -147,6 +116,7 @@ export default {
 					console.log("People")
 				}
 				this.title = '<small>Person mentioned: </small><br/>' + this.$route.query.identifier;
+				this.head = this.$route.query.identifier + 'mentioned';
 // 				this.title = this.$route.query.tag;
 			} else if ( this.$route.name == 'categories' ) {
 				if ( !_.isEmpty(this.posts) ) {
@@ -162,6 +132,7 @@ export default {
 						console.log("Two")
 				}
 				this.title = '';
+				this.head = this.$route.params.slug;
 			} else if ( this.$route.name != 'post' ) {
 				console.log("hi")
 				if ( _.isEmpty(this.posts) ) {
@@ -176,6 +147,7 @@ export default {
 					self.collection = _.toArray(this.posts);
 				}
 				this.title = null;
+				this.head = '';
 			}
 /*
 			if ( this.$route.path == '/' ) {
@@ -238,8 +210,6 @@ export default {
 		onClick(item) {
 			let id = '#footer-'+ item
 			$(id).toggle();
-			console.log(id);
-			console.log($(id).val())
 		},
 	},
 	filters: {

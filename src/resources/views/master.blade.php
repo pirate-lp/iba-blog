@@ -20,6 +20,6 @@
 	</head>
 	
 	<body>
-	    @yield('body')
+		@yield('body')
 	</body>
 </html>

@@ -7,13 +7,8 @@ use LILPLP\IBA\Bundle;
 use LILPLP\IBA\Role;
 use LILPLP\IBA\Keyword as Keyword;
 
-use Illuminate\Notifications\Notifiable;
-
-    
-
 class Post extends Book
 {
-	use Notifiable;
     public static $dimensions = ['title', 'slug', 'thumbnail', 'timestamp'];
     public static $groupings = ['keywords', 'people', 'bundles'];
     public static $storageName = "posts";

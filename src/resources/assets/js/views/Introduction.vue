@@ -1,5 +1,5 @@
 <template>
-<div >
+<div>
 	<div class="post-single">
 	<article class="text shadow">
 		<div>

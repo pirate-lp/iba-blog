@@ -1,11 +1,11 @@
 <template>
-	
-	<div class="cd-timeline-block">
+
+	<div class="blog-timeline-block">
 		
-		<div class="cd-timeline-img cd-picture">
+		<div class="blog-timeline-img blog-picture">
 		</div>
 		
-		<router-link :to="uri()" class="cd-timeline-content">
+		<router-link :to="uri()" class="blog-timeline-content">
 			
 			<template v-if="content.thumbnail">
 				<img :src="thumbnail()" style="" />
@@ -21,32 +21,40 @@
 -->
 			
 			
-			<div class="cd-aside">
-				<span class="date">{{ content.timestamp.publish | date }}</span>
+			
+			
+			<h3 v-html="content.title.value"></h3>
+			
+			
+			
+		</router-link>
+		
+		<div class="blog-aside">
+				<span class="date mc">{{ content.timestamp.publish | date }}</span>
 				
-				<span class="timeline-content-info-title">
+				<span class="date-aside" v-if="content.bundles">
+					|
+				</span>
+				
+				<span class="date-aside timeline-content-info-title">
 					<template v-if="content.bundles">
-						<span v-for="bundle in content.bundles" v-if="bundle.type == 'category'" class="tag sc">
+						<span v-for="bundle in content.bundles" v-if="bundle.type == 'category'" class="tag">
 							{{ bundle.title.value }}
 						</span>
 					</template>
 				</span>
 				
-			</div>
+				<div class="timeline-content-info">
+					<template v-for="keyword in content.keywords">
+							<span class="tag"><router-link :to="{ name: 'home', query: { tag: keyword.word }}">
+							{{ keyword.word }}
+							</router-link></span>
+					</template>
+				</div>
+				
+		</div>
 			
-			<h3 v-html="content.title.value"></h3>
-	        
-	        <div class="timeline-content-info">
-	        <template v-if="content.keywords">
-	        	<span v-for="keyword in content.keywords" class="tag sc">
-					{{ keyword.word }}
-				</span>
-			</template>
-			</div>
-	       
-	        
-	       
-		</router-link> <!-- cd-timeline-content -->
+		 <!-- blog-timeline-content -->
 	</div>
 
 <!--

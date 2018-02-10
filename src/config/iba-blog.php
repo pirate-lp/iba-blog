@@ -3,6 +3,7 @@
 return [
 	'host' => env('APP_URL', 'http://localhost'),
 	'title' => 'My Blog',
+	'description' => '',
 	'digital' => [
 		'uri' => '/blog',
 	],

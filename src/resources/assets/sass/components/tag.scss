@@ -1,4 +1,37 @@
 .tag {
 // 	float: left;
-	margin: 0.4rem;
+	display: inline-block;
+	margin: 0.2rem;
+	
+	a {
+		padding: 0.3rem 0.7rem;
+		display: inline-block;
+		font-size: 0.9em;
+		border-radius: 0.4rem;
+		border: none;
+		
+	}
+	a:hover {
+		border: none;
+	}
+}
+
+.tag {
+	a {
+		background-color: rgba($main-color, 0.5);
+	}
+	
+	a:hover {
+		background-color: rgba($main-color, 1);
+	}
+}
+
+.tag-sc {
+	a {
+		background-color: rgba($second-color, 0.5);
+	}
+	
+	a:hover {
+		background-color: rgba($second-color, 1);
+	}
 }

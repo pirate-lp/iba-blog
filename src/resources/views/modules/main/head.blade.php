@@ -1,4 +1,13 @@
-<div class="cd-header">
+<div class="blog-contact blog-top">
+
+	<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
+		<ul class="pure-menu-list">
+			<li class="pure-menu-item"><a onclick="$('#intro').toggle()" class="extra pure-menu-link">Introduction</a>
+			</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" class="extra pure-menu-link">Mentioned People</a>
+			</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" class="extra pure-menu-link">Tags</a></li>@foreach($categories as $category)<li class="pure-menu-item"><a href="{{ url(config('iba-blog.analog.uri') . '/categories', $category->slug->value) }}" class="pure-menu-link"">{{ $category->title->value }}</a></li>@endforeach
+		</ul>
+	</div>
+	
 	<div id="intro" class="no content">
 	    <p>{{ config('iba-blog.intro') }} How are you?</p>
 	</div>
@@ -51,14 +60,5 @@
 </script>
 		<button type="submit" class="pure-button pure-button-primary">Search</button>
 	</form>
-	</div>
-</div>
-<div class="cd-contact cd-top">
-	<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
-		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a onclick="$('#intro').toggle()" href="#intro" class="extra pure-menu-link">Introduction</a>
-			</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" href="#search" class="extra pure-menu-link">Search</a>
-			</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" href="#tags" class="extra pure-menu-link">Tags</a></li>@foreach($categories as $category)<li class="pure-menu-item"><a href="{{ url(config('iba-blog.analog.uri') . '/categories', $category->slug->value) }}" class="pure-menu-link"">{{ $category->title->value }}</a></li>@endforeach
-		</ul>
 	</div>
 </div>

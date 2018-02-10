@@ -1,8 +1,10 @@
 <template>
 
-<div class="cd-header">
+<div class="blog-header">
+	
 	<div id="introduction" class="no content" v-html="introduction">
 	</div>
+	
 	<div id="tags" class="no content">
 		<header><h4>Tags</h4></header>
 		<div v-if="tags" style="overflow: auto;">
@@ -11,10 +13,13 @@
 			</template>
 		</div>
 	</div>
+	
 	<div id="search" class="no content">
 		<people></people>
 	</div>
+	
 </div>
+
 </template>
 
 <script>

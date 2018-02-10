@@ -8,8 +8,6 @@
 			{{ config('iba-blog.name')}}
 		</title>
 		
-		<meta name="description" content="{{ config('iba-blog.description') or '' }}">
-		
 <!-- 		Adding RSS FEEDs -->
 		
 		<script type="text/javascript" src="/js/template.js"></script>

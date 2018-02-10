@@ -147,10 +147,9 @@ class PostController extends BookController
 		return response()->backend($post);
     }
     
-    public function update(Request $request, $post)
+    public function update(Request $request, Post $post)
     {	
-		$values = $request->only(['title', 'slug', 'subtitle', 'thumbnail', 'description', 'keywords', 'bundles', 'timestamp', 'people']);
-		$post = Post::find($post);
+		$values = $request->only(['content','title', 'slug', 'subtitle', 'thumbnail', 'description', 'keywords', 'bundles', 'timestamp', 'people']);
 		$post->revise($values);
 
 		$post->save();

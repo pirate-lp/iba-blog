@@ -18,20 +18,16 @@ Route::prefix('/blog')->namespace('LILPLP\IBAsBlog\Http\Controllers')->group(fun
 {
 	if ( !request()->wantsJson() )
 	{
-		Route::get('/categories/{slug}', 'PostController@home');
-		Route::get('/{post}', 'PostController@home');
+		Route::get('/categories/{slug}/', 'PostController@home');
+		Route::get('/{post}/', 'PostController@home');
 		Route::get('/', 'PostController@home');
 	}
 	else
 	{
-	    
-	    Route::get('/introduction/', function(){
-			$page = new LILPLP\IBA\Http\Controllers\PageController('blog/introduction/');
-			return $page->content();
-		});
+		
 		
 	    Route::get('/categories/{slug}', 'PostController@category');
-	    Route::get('/index/', 'PostController@index');
+		Route::get('/index/', 'PostController@index');
 		Route::get('/{post}/', 'PostController@show')->name('post');
 		Route::get('/', 'PostController@index');
 		
@@ -46,6 +42,11 @@ Route::prefix('/blog')->namespace('LILPLP\IBAsBlog\Http\Controllers')->group(fun
         
         
         Route::get('/modules/people/search/', '\LILPLP\IBA\Http\Controllers\PeopleController@find');
+        
+        Route::get('/{page}/', function($page) {
+			$page = new LILPLP\IBA\Http\Controllers\LeafController('blog/' . $page);
+			return $page->content();
+		});
     }
 	
 // 	Route::get('/blog/feed/{type}', 'PostController@feed');
@@ -81,11 +82,6 @@ Route::prefix('/api/iba/post')->namespace('LILPLP\IBAsBlog\Http\Controllers')->m
 	Route::patch('/{post}/', 'PostController@update');
 });
 
-Route::prefix('/iba/analog/post')->namespace('LILPLP\IBAsBlog\Http\Controllers')->middleware(['web', 'auth'])->group( function() {
-	Route::get('/', 'PostController@manage');
-	Route::post('/', 'PostController@store');
-	Route::get('/create/', 'PostController@create');
-	Route::get('/{id}/edit', 'PostController@edit');
-	Route::put('/{id}/', 'PostController@update');
+Route::prefix('/iba/analog')->namespace('LILPLP\IBAsBlog\Http\Controllers')->middleware(['web', 'auth'])->group( function() {
+	Route::iba('post', 'PostController');
 });
-

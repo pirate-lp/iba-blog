@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 
 import Home from './views/Home'
-import SinglePost from './views/SinglePost'
+import PostSingle from './views/PostSingle'
 
 let routes = [
 	{
@@ -25,7 +25,7 @@ let routes = [
 		name: 'post',
 		components: {
 			back: Home,
-			single: SinglePost
+			single: PostSingle
 		},
 	},
 ];
