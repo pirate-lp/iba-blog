@@ -1,7 +1,7 @@
 {
     "name": "lil-plp/iba-blog",
     "type": "laravel",
-    "description": "The blogging platfrom component for Interactive Books' Atelier CMS ...",
+    "description": "The awesome blogging platfrom component for Interactive Books' Atelier CMS ...",
     "license": "AGPL-1.0",
     "authors": [
         {
