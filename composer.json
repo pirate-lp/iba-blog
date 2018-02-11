@@ -1,7 +1,8 @@
 {
     "name": "lil-plp/iba-blog",
     "type": "laravel",
-    "license": "AGPL",
+    "description": "The blogging platfrom component for Interactive Books' Atelier CMS ...",
+    "license": "AGPL-1.0",
     "authors": [
         {
             "name": "Lost Ideas Lab",
