@@ -24,7 +24,7 @@
     "masonry-layout": "^4.2.0",
     "microplugin": "0.0.3",
     "moment": "^2.18.1",
-    "plp-css-elements": "1.5.9",
+    "plp-css-elements": "*",
     "purecss": "^0.6.2",
     "selectize": "^0.12.4",
     "sifter": "^0.5.2",
