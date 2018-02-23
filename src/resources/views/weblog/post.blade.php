@@ -21,10 +21,11 @@
 					<span class="mc">{{ $post->timestamp->publish->diffForHumans() }}</span>
 					
 					 | 
-					
-					@foreach ( $post->bundle('category') as $category )
-						<span style="color: #333"><a href="/weblog/categories/{{ $category->slug->value }}/">{{ $category->title->value }}</a></span>
-					@endforeach
+					@if ( $post->bundle('category')->count() > 0 )
+						@foreach ( $post->bundle('category')->get() as $category )
+							<span style="color: #333"><a href="/weblog/categories/{{ $category->slug->value }}/">{{ $category->title->value }}</a></span>
+						@endforeach
+					@endif
 					
 				</header>
 				
