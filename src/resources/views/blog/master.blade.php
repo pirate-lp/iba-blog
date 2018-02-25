@@ -10,7 +10,7 @@
 		
 <!-- 		Adding RSS FEEDs -->
 		
-		<script type="text/javascript" src="/js/template.js"></script>
+<!-- 		<script type="text/javascript" src="/js/template.js"></script> -->
 		<link rel="stylesheet" href="/lil-plp/iba-blog/css/style.css" type="text/css">
 		
 
