@@ -3,9 +3,9 @@
 		<div class="blog-contact blog-top">
 			<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
 				<ul class="pure-menu-list">
-					</li><li class="pure-menu-item"><a onclick="$('#introduction').toggle()" class="extra pure-menu-link">Introduction</a>
-			    	</li><li class="pure-menu-item"><a onclick="$('#search').toggle()" class="extra pure-menu-link">Mentioned People</a>
-			    	</li><li class="pure-menu-item"><a onclick="$('#tags').toggle()" class="extra pure-menu-link">Tags</a>
+					</li><li class="pure-menu-item"><a v-on:click="dashboardToggle('introduction')" class="extra pure-menu-link">Introduction</a>
+			    	</li><li class="pure-menu-item"><a v-on:click="dashboardToggle('search')" class="extra pure-menu-link">Mentioned People</a>
+			    	</li><li class="pure-menu-item"><a v-on:click="dashboardToggle('tags')" class="extra pure-menu-link">Tags</a>
 			    	</li><!--
 			    	<li class="pure-menu-item">
 			    		<router-link to="/" class="pure-menu-link">All Posts</router-link>
@@ -211,6 +211,17 @@ export default {
 			let id = '#footer-'+ item
 			$(id).toggle();
 		},
+		
+		
+		dashboardToggle(id) {
+			let element = document.getElementById(id);
+// 			let element = this.$refs[id]
+			if (element.style.maxHeight){
+				element.style.maxHeight = null;
+			} else { element.style.maxHeight = element.scrollHeight + "px"; } 
+			
+		}
+		
 	},
 	filters: {
 		capitalize: function(text) {
