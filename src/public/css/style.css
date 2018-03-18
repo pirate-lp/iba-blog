@@ -1846,7 +1846,11 @@ section > header > h1, section > header > h2, section > header > h3 {
 }
 
 .blog-header > div {
-  padding: 1rem;
+  max-height: 0px;
+  padding: 0px 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
 
 .blog-footer {
