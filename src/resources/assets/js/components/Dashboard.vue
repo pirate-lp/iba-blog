@@ -2,10 +2,10 @@
 
 <div class="blog-header">
 	
-	<div id="introduction" class="no content" v-html="introduction">
+	<div id="introduction" class="content" v-html="introduction">
 	</div>
 	
-	<div id="tags" class="no content">
+	<div id="tags" class="content">
 		<header><h4>Tags</h4></header>
 		<div v-if="tags" style="overflow: auto;">
 			<template v-for="tag in tags">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	
-	<div id="search" class="no content">
+	<div id="search" class=" content">
 		<people></people>
 	</div>
 	
