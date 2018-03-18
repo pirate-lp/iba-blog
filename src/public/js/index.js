@@ -32692,6 +32692,15 @@ var moment = __webpack_require__(0);
 		onClick: function onClick(item) {
 			var id = '#footer-' + item;
 			$(id).toggle();
+		},
+		dashboardToggle: function dashboardToggle(id) {
+			var element = document.getElementById(id);
+			// 			let element = this.$refs[id]
+			if (element.style.maxHeight) {
+				element.style.maxHeight = null;
+			} else {
+				element.style.maxHeight = element.scrollHeight + "px";
+			}
 		}
 	},
 	filters: {
@@ -33352,7 +33361,7 @@ exports.push([module.i, "\n.tag[data-v-24520fb8] {\n\tfloat: left;\n}\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 168 */
@@ -53228,7 +53237,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
   return _c('div', {
     staticClass: "blog-header"
   }, [_c('div', {
-    staticClass: "no content",
+    staticClass: "content",
     attrs: {
       "id": "introduction"
     },
@@ -53236,7 +53245,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "innerHTML": _vm._s(_vm.introduction)
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "no content",
+    staticClass: "content",
     attrs: {
       "id": "tags"
     }
@@ -53258,7 +53267,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       }
     }, [_vm._v("#" + _vm._s(tag.word))])], 1)]
   })], 2) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "no content",
+    staticClass: " content",
     attrs: {
       "id": "search"
     }
@@ -53291,7 +53300,34 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "menu pure-menu pure-menu-horizontal pure-menu-scrollable"
   }, [_c('ul', {
     staticClass: "pure-menu-list"
-  }, [_vm._m(0), _vm._m(1), _vm._m(2), _vm._l((_vm.categories), function(category) {
+  }, [_c('li', {
+    staticClass: "pure-menu-item"
+  }, [_c('a', {
+    staticClass: "extra pure-menu-link",
+    on: {
+      "click": function($event) {
+        _vm.dashboardToggle('introduction')
+      }
+    }
+  }, [_vm._v("Introduction")])]), _c('li', {
+    staticClass: "pure-menu-item"
+  }, [_c('a', {
+    staticClass: "extra pure-menu-link",
+    on: {
+      "click": function($event) {
+        _vm.dashboardToggle('search')
+      }
+    }
+  }, [_vm._v("Mentioned People")])]), _c('li', {
+    staticClass: "pure-menu-item"
+  }, [_c('a', {
+    staticClass: "extra pure-menu-link",
+    on: {
+      "click": function($event) {
+        _vm.dashboardToggle('tags')
+      }
+    }
+  }, [_vm._v("Tags")])]), _vm._l((_vm.categories), function(category) {
     return _c('li', {
       staticClass: "pure-menu-item"
     }, [_c('router-link', {
@@ -53355,34 +53391,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     }, [_vm._v(_vm._s(_vm._f("capitalize")(item)))])])
   }))])])], 1)
 }
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "pure-menu-item"
-  }, [_c('a', {
-    staticClass: "extra pure-menu-link",
-    attrs: {
-      "onclick": "$('#introduction').toggle()"
-    }
-  }, [_vm._v("Introduction")])])
-},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "pure-menu-item"
-  }, [_c('a', {
-    staticClass: "extra pure-menu-link",
-    attrs: {
-      "onclick": "$('#search').toggle()"
-    }
-  }, [_vm._v("Mentioned People")])])
-},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "pure-menu-item"
-  }, [_c('a', {
-    staticClass: "extra pure-menu-link",
-    attrs: {
-      "onclick": "$('#tags').toggle()"
-    }
-  }, [_vm._v("Tags")])])
-}]
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
