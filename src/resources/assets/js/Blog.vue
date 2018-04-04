@@ -1,5 +1,6 @@
 <template>
 	<div class="blog">
+		
 		<div class="blog-contact blog-top">
 			<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
 				<ul class="pure-menu-list">
@@ -14,22 +15,21 @@
 			    		<router-link :to="{ name: 'categories', params: { slug: category.slug.value }}" class="pure-menu-link">{{ category.title.value }}</router-link></li>
 				</ul>
 			</div>
-			<dashboard :introduction="introduction"></dashboard>
 		</div>
 		
+		<dashboard :introduction="introduction"></dashboard>
 		
 		<router-view name="back" :collection="collection" :posts="posts" :title="title"></router-view>
 		<router-view name="single" :route="route"></router-view>
 		
+		<div class="blog-footer">
+			<template v-for="(text, item, index) in footer">
+				<div :id="'footer-' + index" class="content no" v-html="text">
+				</div>
+			</template>
+		</div>
+		
 		<div class="blog-bottom blog-contact">
-			
-			<div class="blog-footer">
-				<template v-for="(text, item, index) in footer">
-					<div :id="'footer-' + index" class="content no" v-html="text">
-					</div>
-				</template>
-			</div>
-			
 			<div class="menu pure-menu pure-menu-horizontal pure-menu-scrollable">
 				<ul class="pure-menu-list">
 					<li class="pure-menu-item" v-for="(text, item, index) in footer">
@@ -208,18 +208,20 @@ export default {
 		
 */
 		onClick(item) {
-			let id = '#footer-'+ item
-			$(id).toggle();
+// 			let id = '#footer-'+ item
+			let id = 'footer-' + item;
+// 			$(id).toggle();
+			this.dashboardToggle(id);
 		},
 		
 		
 		dashboardToggle(id) {
 			let element = document.getElementById(id);
-// 			let element = this.$refs[id]
 			if (element.style.maxHeight){
 				element.style.maxHeight = null;
-			} else { element.style.maxHeight = element.scrollHeight + "px"; } 
-			
+			} else { 
+				element.style.maxHeight = element.scrollHeight + "px";
+			}
 		}
 		
 	},

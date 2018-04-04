@@ -1,7 +1,6 @@
 <template>
 
 <div class="blog-header">
-	
 	<div id="introduction" class="content" v-html="introduction">
 	</div>
 	

@@ -1,18 +1,35 @@
 @import "/libs/selectize";
 
 @import "~plp-css-elements/src/config";
-@import "~plp-css-elements/src/style";
+@import "~plp-css-elements/src/custom";
 
 @import "/variables";
-// @import "/fonts/headings.scss";
-@import "/views/blog.scss";
 
 @import "/components/post.scss";
 @import "/components/tag.scss";
 @import "/components/single";
 
-@import "/views/timeline";
+@import "/timeline/grid";
+@import "/timeline/menu";
+@import "/timeline/header&footer";
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700&subset=latin-ext');
+
+html {
+	font-family: Lato,sans-serif;
+	line-height: 1.5;
+}
 
 .modal {
 	z-index: 6;
+}
+
+body > header {
+	
+	padding: 2em 2em .5em 2em;
+	
+	@include breakpoint(lg) {
+		padding: 2em 8em .5em 8em;
+	}
 }
